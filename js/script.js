@@ -4,7 +4,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all features
     initScrollAnimations();
-    initMobileMenu();
     initHeaderScroll();
     initSmoothScrolling();
     initWhatsAppButton();
@@ -51,84 +50,6 @@ function initScrollAnimations() {
     });
 }
 
-// Mobile Menu Toggle
-function initMobileMenu() {
-    const mobileToggle = document.getElementById('mobile-menu-toggle');
-    const nav = document.getElementById('nav');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    if (mobileToggle && nav) {
-        // Ensure menu starts closed
-        nav.classList.remove('active');
-        mobileToggle.classList.remove('active');
-        
-        mobileToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            nav.classList.toggle('active');
-            mobileToggle.classList.toggle('active');
-            
-            // Animate hamburger menu
-            const hamburgers = mobileToggle.querySelectorAll('.hamburger');
-            hamburgers.forEach((hamburger, index) => {
-                if (mobileToggle.classList.contains('active')) {
-                    if (index === 0) hamburger.style.transform = 'rotate(45deg) translate(5px, 5px)';
-                    if (index === 1) hamburger.style.opacity = '0';
-                    if (index === 2) hamburger.style.transform = 'rotate(-45deg) translate(7px, -6px)';
-                } else {
-                    hamburger.style.transform = 'none';
-                    hamburger.style.opacity = '1';
-                }
-            });
-        });
-        
-        // Close menu when clicking on links
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                nav.classList.remove('active');
-                mobileToggle.classList.remove('active');
-                
-                // Reset hamburger animation
-                const hamburgers = mobileToggle.querySelectorAll('.hamburger');
-                hamburgers.forEach(hamburger => {
-                    hamburger.style.transform = 'none';
-                    hamburger.style.opacity = '1';
-                });
-            });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (nav.classList.contains('active') && !nav.contains(e.target) && !mobileToggle.contains(e.target)) {
-                nav.classList.remove('active');
-                mobileToggle.classList.remove('active');
-                
-                // Reset hamburger animation
-                const hamburgers = mobileToggle.querySelectorAll('.hamburger');
-                hamburgers.forEach(hamburger => {
-                    hamburger.style.transform = 'none';
-                    hamburger.style.opacity = '1';
-                });
-            }
-        });
-        
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && nav.classList.contains('active')) {
-                nav.classList.remove('active');
-                mobileToggle.classList.remove('active');
-                
-                // Reset hamburger animation
-                const hamburgers = mobileToggle.querySelectorAll('.hamburger');
-                hamburgers.forEach(hamburger => {
-                    hamburger.style.transform = 'none';
-                    hamburger.style.opacity = '1';
-                });
-            }
-        });
-    }
-}
 
 // Header Scroll Effect
 function initHeaderScroll() {
